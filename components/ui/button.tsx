@@ -4,7 +4,7 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-400 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 active:scale-[0.97]',
+  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 active:scale-[0.97]',
   {
     variants: {
       variant: {
@@ -21,7 +21,7 @@ const buttonVariants = cva(
         link:
           'text-slate-900 underline-offset-4 hover:underline',
         primary:
-          'bg-gradient-to-r from-green-600 to-green-500 text-white shadow-lg shadow-green-600/20 hover:from-green-700 hover:to-green-600 hover:shadow-green-600/30 hover:shadow-xl',
+          'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-600/20 hover:from-blue-700 hover:to-blue-600 hover:shadow-blue-600/30 hover:shadow-xl',
         gold:
           'bg-gradient-to-r from-amber-500 to-amber-400 text-white shadow-lg shadow-amber-500/20 hover:from-amber-600 hover:to-amber-500',
       },

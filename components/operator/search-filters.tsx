@@ -5,6 +5,7 @@ import { Search } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { LANGUAGES, DESTINATIONS } from '@/lib/languages'
 
 interface SearchFiltersProps {
   onSearch: (filters: {
@@ -17,7 +18,7 @@ interface SearchFiltersProps {
 }
 
 const SELECT_BASE =
-  'flex h-10 w-full rounded-xl border-[1.5px] border-slate-200 bg-white/80 px-3.5 py-2.5 text-sm text-slate-800 outline-none transition-all duration-200 focus:border-green-500 focus:ring-3 focus:ring-green-500/10 hover:border-slate-300 backdrop-blur-sm appearance-none cursor-pointer'
+  'flex h-10 w-full rounded-xl border-[1.5px] border-slate-200 bg-white/80 px-3.5 py-2.5 text-sm text-slate-800 outline-none transition-all duration-200 focus:border-blue-500 focus:ring-3 focus:ring-blue-500/10 hover:border-slate-300 backdrop-blur-sm appearance-none cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap'
 
 export function SearchFilters({ onSearch }: SearchFiltersProps) {
   const [date, setDate] = useState(new Date().toISOString().split('T')[0])
@@ -45,14 +46,14 @@ export function SearchFilters({ onSearch }: SearchFiltersProps) {
         <div className="space-y-1.5">
           <Label htmlFor="search-name">Guide Name</Label>
           <div className="relative group">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-[#009739] transition-colors pointer-events-none" />
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-[#2563eb] transition-colors pointer-events-none" />
             <input
               id="search-name"
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Search by name..."
-              className="w-full h-11 pl-10 pr-4 text-sm bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder:text-slate-400 outline-none transition-all duration-200 focus:bg-white focus:border-[#009739] focus:ring-4 focus:ring-[#009739]/10"
+              className="w-full h-11 pl-10 pr-4 text-sm bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder:text-slate-400 outline-none transition-all duration-200 focus:bg-white focus:border-[#2563eb] focus:ring-4 focus:ring-[#2563eb]/10"
             />
           </div>
         </div>
@@ -77,14 +78,9 @@ export function SearchFilters({ onSearch }: SearchFiltersProps) {
               className={SELECT_BASE}
             >
               <option value="">Any Destination</option>
-              <option value="Lalibela">🏛️ Lalibela</option>
-              <option value="Addis Ababa">🌆 Addis Ababa</option>
-              <option value="Gondar">🏰 Gondar</option>
-              <option value="Danakil Depression">🌋 Danakil Depression</option>
-              <option value="Simien Mountains">🏔️ Simien Mountains</option>
-              <option value="Bale Mountains">🌿 Bale Mountains</option>
-              <option value="Omo Valley">🌍 Omo Valley</option>
-              <option value="Aksum">⛩️ Aksum</option>
+              {DESTINATIONS.map(d => (
+                <option key={d.name} value={d.name}>{d.icon} {d.name}</option>
+              ))}
             </select>
             <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
               <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
@@ -104,12 +100,9 @@ export function SearchFilters({ onSearch }: SearchFiltersProps) {
               className={SELECT_BASE}
             >
               <option value="">Any Language</option>
-              <option value="am">🇪🇹 Amharic (am)</option>
-              <option value="en">🇬🇧 English (en)</option>
-              <option value="fr">🇫🇷 French (fr)</option>
-              <option value="de">🇩🇪 German (de)</option>
-              <option value="it">🇮🇹 Italian (it)</option>
-              <option value="or">🌍 Oromo (or)</option>
+              {LANGUAGES.map(l => (
+                <option key={l.code} value={l.code}>{l.flag} {l.name}</option>
+              ))}
             </select>
             <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
               <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
@@ -134,7 +127,7 @@ export function SearchFilters({ onSearch }: SearchFiltersProps) {
                 readOnly
               />
               <div className={`w-10 h-6 rounded-full transition-all duration-200 relative ${
-                freeOnly ? 'bg-emerald-500' : 'bg-slate-300'
+                freeOnly ? 'bg-blue-500' : 'bg-slate-300'
               }`}>
                 <div className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow-sm transition-all duration-200 ${
                   freeOnly ? 'translate-x-4' : 'translate-x-0'

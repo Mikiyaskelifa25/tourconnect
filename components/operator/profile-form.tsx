@@ -83,7 +83,7 @@ export function OperatorProfileForm({ onSuccess }: { onSuccess?: () => void }) {
   if (loading) {
     return (
       <div className="flex flex-col items-center justify-center p-16 space-y-4">
-        <Loader2 className="w-10 h-10 text-[#009739] animate-spin" />
+        <Loader2 className="w-10 h-10 text-[#2563eb] animate-spin" />
         <p className="text-sm font-semibold text-slate-500 animate-pulse">Loading profile details...</p>
       </div>
     )
@@ -99,8 +99,8 @@ export function OperatorProfileForm({ onSuccess }: { onSuccess?: () => void }) {
       )}
 
       {success && (
-        <div className="p-4 bg-emerald-50 text-emerald-700 rounded-2xl text-sm font-bold border border-emerald-100/50 animate-fade-in flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
+        <div className="p-4 bg-blue-50 text-blue-700 rounded-2xl text-sm font-bold border border-blue-100/50 animate-fade-in flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-blue-500 shrink-0" />
           {success}
         </div>
       )}
@@ -156,12 +156,12 @@ export function OperatorProfileForm({ onSuccess }: { onSuccess?: () => void }) {
             Company Name
           </Label>
           <div className="relative group">
-            <Building2 className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-[#009739] transition-colors" />
+            <Building2 className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-[#2563eb] transition-colors" />
             <Input
               id="name"
               value={formData.name}
               onChange={e => setFormData({ ...formData, name: e.target.value })}
-              className="pl-12 h-14 bg-slate-50 border-slate-100 rounded-[1.25rem] focus:bg-white focus:ring-4 focus:ring-[#009739]/10 focus:border-[#009739]/30 transition-all text-slate-900 font-medium"
+              className="pl-12 h-14 bg-slate-50 border-slate-100 rounded-[1.25rem] focus:bg-white focus:ring-4 focus:ring-[#2563eb]/10 focus:border-[#2563eb]/30 transition-all text-slate-900 font-medium"
               placeholder="e.g. Lalibela Eco Tours"
               required
             />
@@ -174,12 +174,12 @@ export function OperatorProfileForm({ onSuccess }: { onSuccess?: () => void }) {
             Phone Number
           </Label>
           <div className="relative group">
-            <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-[#009739] transition-colors" />
+            <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-[#2563eb] transition-colors" />
             <Input
               id="phone"
               value={formData.phone}
               onChange={e => setFormData({ ...formData, phone: e.target.value })}
-              className="pl-12 h-14 bg-slate-50 border-slate-100 rounded-[1.25rem] focus:bg-white focus:ring-4 focus:ring-[#009739]/10 focus:border-[#009739]/30 transition-all text-slate-900 font-medium"
+              className="pl-12 h-14 bg-slate-50 border-slate-100 rounded-[1.25rem] focus:bg-white focus:ring-4 focus:ring-[#2563eb]/10 focus:border-[#2563eb]/30 transition-all text-slate-900 font-medium"
               placeholder="+251 911 000000"
             />
           </div>

@@ -47,7 +47,7 @@ export function LoginForm() {
       <div className="space-y-1.5">
         <Label htmlFor="login-email" className="text-slate-700 font-semibold text-sm">Email Address</Label>
         <div className="relative group">
-          <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-[#009739] transition-colors pointer-events-none" />
+          <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-[#2563eb] transition-colors pointer-events-none" />
           <input
             id="login-email"
             type="email"
@@ -55,7 +55,7 @@ export function LoginForm() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="operator@example.com"
-            className="w-full h-12 pl-11 pr-4 text-sm bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder:text-slate-400 outline-none transition-all duration-200 focus:bg-white focus:border-[#009739] focus:ring-4 focus:ring-[#009739]/10"
+            className="w-full h-12 pl-11 pr-4 text-sm bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder:text-slate-400 outline-none transition-all duration-200 focus:bg-white focus:border-[#2563eb] focus:ring-4 focus:ring-[#2563eb]/10"
           />
         </div>
       </div>
@@ -63,15 +63,9 @@ export function LoginForm() {
       <div className="space-y-1.5">
         <div className="flex items-center justify-between">
           <Label htmlFor="login-password" className="text-slate-700 font-semibold text-sm">Password</Label>
-          <button
-            type="button"
-            className="text-xs font-bold text-[#009739] hover:text-[#007a2e] transition-colors py-1 px-2 -mr-2"
-          >
-            Forgot?
-          </button>
         </div>
         <div className="relative group">
-          <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-[#009739] transition-colors pointer-events-none" />
+          <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-[#2563eb] transition-colors pointer-events-none" />
           <input
             id="login-password"
             type={showPassword ? 'text' : 'password'}
@@ -79,7 +73,7 @@ export function LoginForm() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="••••••••"
-            className="w-full h-12 pl-11 pr-12 text-sm bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder:text-slate-400 outline-none transition-all duration-200 focus:bg-white focus:border-[#009739] focus:ring-4 focus:ring-[#009739]/10"
+            className="w-full h-12 pl-11 pr-12 text-sm bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder:text-slate-400 outline-none transition-all duration-200 focus:bg-white focus:border-[#2563eb] focus:ring-4 focus:ring-[#2563eb]/10"
           />
           <button
             type="button"
@@ -94,7 +88,7 @@ export function LoginForm() {
 
       <Button
         type="submit"
-        className="w-full h-12 text-sm font-bold bg-gradient-to-r from-[#009739] to-[#007a2e] hover:from-[#007a2e] hover:to-[#006625] text-white rounded-xl shadow-lg shadow-green-500/20 hover:shadow-green-500/30 transition-all duration-200 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
+        className="w-full h-12 text-sm font-bold bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] hover:from-[#1d4ed8] hover:to-[#006625] text-white rounded-xl shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 transition-all duration-200 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
         disabled={loading}
         id="login-submit-btn"
       >

@@ -9,7 +9,7 @@ interface ListViewProps {
 }
 
 const STATUS_CONFIG: Record<DateStatus, { dot: string; bg: string; text: string; label: string }> = {
-  available: { dot: 'bg-green-500', bg: 'bg-green-50 border-green-200', text: 'text-green-700', label: 'Available' },
+  available: { dot: 'bg-blue-500', bg: 'bg-blue-50 border-blue-200', text: 'text-blue-700', label: 'Available' },
   unavailable: { dot: 'bg-red-500', bg: 'bg-red-50 border-red-200', text: 'text-red-700', label: 'Unavailable' },
   pending: { dot: 'bg-yellow-500', bg: 'bg-yellow-50 border-yellow-200', text: 'text-yellow-700', label: 'Pending Booking' },
   confirmed: { dot: 'bg-blue-500', bg: 'bg-blue-50 border-blue-200', text: 'text-blue-700', label: 'Confirmed Tour' },
@@ -47,7 +47,7 @@ export function ListView({ dates, onDateClick }: ListViewProps) {
             className={`
               w-full flex items-center gap-4 p-3.5 rounded-xl border transition-all duration-150 text-left
               ${config ? config.bg : 'bg-white border-slate-100 hover:border-slate-200 hover:bg-slate-50'}
-              ${info.isToday ? 'ring-2 ring-green-500/20' : ''}
+              ${info.isToday ? 'ring-2 ring-blue-500/20' : ''}
             `}
           >
             <div className="flex items-center gap-3 min-w-0 flex-1">
@@ -59,7 +59,7 @@ export function ListView({ dates, onDateClick }: ListViewProps) {
                     {formatDateDisplay(dateStr)}
                   </span>
                   {info.isToday && (
-                    <span className="text-[10px] font-bold text-green-600 bg-green-100 px-2 py-0.5 rounded-full">
+                    <span className="text-[10px] font-bold text-blue-600 bg-blue-100 px-2 py-0.5 rounded-full">
                       Today
                     </span>
                   )}

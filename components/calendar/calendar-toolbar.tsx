@@ -56,7 +56,7 @@ export function CalendarToolbar({
 
         <button
           onClick={onToday}
-          className="text-xs font-bold text-green-600 hover:text-green-700 bg-green-50 hover:bg-green-100 px-3 py-1.5 rounded-lg transition-all border border-green-200"
+          className="text-xs font-bold text-blue-600 hover:text-blue-700 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-lg transition-all border border-blue-200"
         >
           Today
         </button>

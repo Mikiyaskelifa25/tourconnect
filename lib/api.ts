@@ -164,7 +164,7 @@ export async function apiSearchGuides(_token: string | null, body: SearchPayload
 
   let query = supabase
     .from('tour_guides')
-    .select('id, name, email, phone, rating_avg, profile_photo_url')
+    .select('id, name, email, phone, rating_avg, profile_photo_url, website')
 
   if (name) {
     query = query.ilike('name', `%${name}%`)
@@ -230,6 +230,7 @@ export async function apiSearchGuides(_token: string | null, body: SearchPayload
       locations: [...new Set(gLocs)].join(','),
       availability_status: availStatus,
       profile_photo_url: g.profile_photo_url || null,
+      website: g.website || null,
       unavailable_dates: gUnavailable,
     }
   }).filter(Boolean) as GuideResult[]
@@ -378,7 +379,7 @@ export async function apiGetProfile(): Promise<ApiResponse> {
   if (userType === 'guide') {
     const { data: profile, error } = await supabase
       .from('tour_guides')
-      .select('id, name, email, phone, rating_avg, license_number, profile_photo_url')
+      .select('id, name, email, phone, rating_avg, license_number, profile_photo_url, website')
       .eq('email', session.user.email)
       .single()
 
@@ -419,7 +420,7 @@ export async function apiUpdateProfile(body: Partial<RegisterPayload>): Promise<
   const { data: { session: authSession } } = await supabase.auth.getSession()
   if (!authSession?.user) return { ok: false, status: 401, data: { error: 'Unauthorized' } }
 
-  const { name, phone, licenseNumber, languages, locations, profilePhotoUrl } = body
+  const { name, phone, licenseNumber, languages, locations, profilePhotoUrl, website } = body
   const userType = authSession.user.user_metadata?.user_type as string | undefined
 
   if (userType === 'guide') {
@@ -430,6 +431,7 @@ export async function apiUpdateProfile(body: Partial<RegisterPayload>): Promise<
         phone,
         license_number: licenseNumber,
         profile_photo_url: profilePhotoUrl,
+        website,
       })
       .eq('email', authSession.user.email)
       .select('id')
@@ -659,7 +661,7 @@ export async function apiGetHireDetails(hireRequestId: string): Promise<ApiRespo
     .from('hire_requests')
     .select(`
       *,
-      guide:guide_id(id, name, email, phone, rating_avg, profile_photo_url),
+      guide:guide_id(id, name, email, phone, rating_avg, profile_photo_url, website),
       operator:operator_id(id, name, email, phone, profile_photo_url)
     `)
     .eq('id', hireRequestId)
@@ -733,6 +735,7 @@ export async function apiGetHireDetails(hireRequestId: string): Promise<ApiRespo
         languages,
         locations,
         profile_photo_url: (guideInfo.profile_photo_url as string) || null,
+        website: (guideInfo.website as string) || null,
       },
       operator: {
         id: operatorInfo.id as string,
@@ -926,7 +929,7 @@ export async function apiReplaceUnavailableDates(dates: string[], reason?: strin
 export async function apiGetGuideById(guideId: string): Promise<ApiResponse<GuideResult>> {
   const { data: guide, error } = await supabase
     .from('tour_guides')
-    .select('id, name, email, phone, rating_avg, profile_photo_url')
+    .select('id, name, email, phone, rating_avg, profile_photo_url, website')
     .eq('id', guideId)
     .single()
 
@@ -954,6 +957,7 @@ export async function apiGetGuideById(guideId: string): Promise<ApiResponse<Guid
       locations: [...new Set((locRes.data || []).map((r: Record<string, string>) => r.location_name))].join(','),
       availability_status: isUnavailable ? 'close' : 'free',
       profile_photo_url: guide.profile_photo_url || null,
+      website: guide.website || null,
       unavailable_dates: unavailableDates,
     },
   }
@@ -972,6 +976,33 @@ export async function apiGetGuideUnavailableDates(
 
   const dates = ((data || []) as { date: string }[]).map((r) => r.date)
   return { ok: true, status: 200, data: dates }
+}
+
+export async function apiGetGuideCompletedTours(
+  guideId: string
+): Promise<ApiResponse<{ id: string; operator_name: string; start_date: string; end_date: string; daily_rate: number; status: string; created_at: string }[]>> {
+  const { data, error } = await supabase
+    .from('hire_requests')
+    .select(`*, operator:operator_id(id, name)`)
+    .eq('guide_id', guideId)
+    .in('status', ['accepted'])
+    .order('created_at', { ascending: false })
+    .limit(20)
+
+  if (error) return { ok: false, status: 500, data: { error: error.message } }
+
+  const rows = (data || []) as Record<string, unknown>[]
+  const results = rows.map((item) => ({
+    id: item.id as string,
+    operator_name: (item.operator as Record<string, string>)?.name || 'Unknown',
+    start_date: item.start_date as string,
+    end_date: item.end_date as string,
+    daily_rate: item.daily_rate as number,
+    status: item.status as string,
+    created_at: item.created_at as string,
+  }))
+
+  return { ok: true, status: 200, data: results }
 }
 
 export async function apiCheckGuideAvailability(

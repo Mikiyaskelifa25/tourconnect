@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { Clock, User, Trash2 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { useApp } from '@/lib/store'
@@ -18,6 +18,19 @@ export function HistoryPanel() {
   const [items, setItems] = useState<RequestHistoryItem[]>([])
   const [loading, setLoading] = useState(true)
   const [open, setOpen] = useState(false)
+  const panelRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    function handlePointerDown(e: PointerEvent) {
+      if (panelRef.current && !panelRef.current.contains(e.target as Node)) {
+        setOpen(false)
+      }
+    }
+    if (open) {
+      document.addEventListener('pointerdown', handlePointerDown)
+    }
+    return () => document.removeEventListener('pointerdown', handlePointerDown)
+  }, [open])
 
   useEffect(() => {
     apiGetHistory().then((res) => {
@@ -44,9 +57,7 @@ export function HistoryPanel() {
       </button>
 
       {open && (
-        <>
-          <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
-          <div className="fixed sm:absolute right-2 sm:right-0 top-16 sm:top-full mt-0 sm:mt-2 z-50 w-[calc(100vw-16px)] sm:w-96 bg-white border border-slate-200 rounded-2xl shadow-2xl overflow-hidden animate-fade-in-up">
+        <div ref={panelRef} className="fixed sm:absolute right-2 sm:right-0 top-[72px] sm:top-full mt-0 sm:mt-2 z-[70] w-[calc(100vw-16px)] sm:w-96 bg-white border border-slate-200 rounded-2xl shadow-2xl overflow-hidden animate-fade-in-up">
             <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100">
               <div className="flex items-center gap-2">
                 <Clock className="w-4 h-4 text-slate-600" />
@@ -117,7 +128,6 @@ export function HistoryPanel() {
               )}
             </div>
           </div>
-        </>
       )}
     </div>
   )

@@ -80,7 +80,7 @@ export function AvailabilityForm({ onStatusChange }: AvailabilityFormProps) {
                 className={`flex items-center gap-3 px-4 py-3 rounded-xl border-[1.5px] text-sm font-bold transition-all duration-200 text-left ${
                   status === opt.value
                     ? opt.value === 'free'
-                      ? 'border-green-400 bg-green-50 text-green-800 shadow-sm'
+                      ? 'border-blue-400 bg-blue-50 text-blue-800 shadow-sm'
                       : 'border-red-400 bg-red-50 text-red-800 shadow-sm'
                     : 'border-slate-200 bg-white/60 text-slate-600 hover:border-slate-300 hover:bg-white'
                 }`}

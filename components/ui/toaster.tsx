@@ -14,14 +14,14 @@ export function Toaster() {
           title: 'text-sm font-bold text-slate-900',
           description: 'text-xs text-slate-500 mt-0.5',
           error: '!border-red-200 !bg-red-50',
-          success: '!border-green-200 !bg-green-50',
+          success: '!border-blue-200 !bg-blue-50',
           info: '!border-blue-200 !bg-blue-50',
         },
       }}
       icons={
         {
           success: (
-            <div className="w-5 h-5 rounded-full bg-green-500 flex items-center justify-center shrink-0">
+            <div className="w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center shrink-0">
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
                 <path d="M2.5 6L5 8.5L9.5 3.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>

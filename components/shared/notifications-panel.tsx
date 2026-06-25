@@ -12,6 +12,19 @@ export function NotificationsPanel() {
   const [open, setOpen] = useState(false)
   const [unreadCount, setUnreadCount] = useState(0)
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const panelRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    function handlePointerDown(e: PointerEvent) {
+      if (panelRef.current && !panelRef.current.contains(e.target as Node)) {
+        setOpen(false)
+      }
+    }
+    if (open) {
+      document.addEventListener('pointerdown', handlePointerDown)
+    }
+    return () => document.removeEventListener('pointerdown', handlePointerDown)
+  }, [open])
 
   async function loadNotifications() {
     const res = await apiGetNotifications()
@@ -73,9 +86,7 @@ export function NotificationsPanel() {
       </button>
 
       {open && (
-        <>
-          <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
-          <div className="fixed sm:absolute right-2 sm:right-0 top-16 sm:top-full mt-0 sm:mt-2 z-50 w-[calc(100vw-16px)] sm:w-96 bg-white border border-slate-200 rounded-2xl shadow-2xl overflow-hidden animate-fade-in-up">
+        <div ref={panelRef} className="fixed sm:absolute right-2 sm:right-0 top-[72px] sm:top-full mt-0 sm:mt-2 z-[70] w-[calc(100vw-16px)] sm:w-96 bg-white border border-slate-200 rounded-2xl shadow-2xl overflow-hidden animate-fade-in-up">
             <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100">
               <div className="flex items-center gap-2">
                 <Bell className="w-4 h-4 text-indigo-600" />
@@ -141,7 +152,6 @@ export function NotificationsPanel() {
               )}
             </div>
           </div>
-        </>
       )}
     </div>
   )

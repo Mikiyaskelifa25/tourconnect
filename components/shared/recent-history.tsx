@@ -46,7 +46,7 @@ export function RecentHistory() {
             <span className="w-5 h-5 border-2 border-slate-300 border-t-slate-600 rounded-full animate-spin" />
           </div>
         ) : items.length === 0 ? (
-          <div className="h-32 flex flex-col items-center justify-center gap-2 text-slate-400 border border-dashed border-slate-200 rounded-xl bg-slate-50/50">
+          <div className="h-32 flex flex-col items-center justify-center gap-2 text-slate-400 border border-dashed border-blue-200/40 rounded-xl bg-slate-50/50">
             <Clock className="w-8 h-8 opacity-50" />
             <p className="text-xs text-center">No history yet.</p>
           </div>
@@ -99,7 +99,7 @@ export function RecentHistory() {
                 return (
                   <div
                     key={item.id}
-                    className="p-3 bg-slate-50/65 rounded-xl border border-slate-100 space-y-2.5 animate-fade-in-up"
+                    className="p-3 bg-slate-50/65 rounded-xl border border-blue-100/50 space-y-2.5 animate-fade-in-up"
                     style={{ animationDelay: `${i * 0.04}s` }}
                   >
                     <div className="flex items-center justify-between">

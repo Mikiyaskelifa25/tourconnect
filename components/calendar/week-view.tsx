@@ -11,7 +11,7 @@ interface WeekViewProps {
 }
 
 const STATUS_STYLES: Record<DateStatus, { bg: string; dot: string; label: string }> = {
-  available: { bg: 'bg-green-50 border-green-300', dot: 'bg-green-500', label: 'Available' },
+  available: { bg: 'bg-blue-50 border-blue-300', dot: 'bg-blue-500', label: 'Available' },
   unavailable: { bg: 'bg-red-50 border-red-300', dot: 'bg-red-500', label: 'Unavailable' },
   pending: { bg: 'bg-yellow-50 border-yellow-300', dot: 'bg-yellow-500', label: 'Pending' },
   confirmed: { bg: 'bg-blue-50 border-blue-300', dot: 'bg-blue-500', label: 'Confirmed' },
@@ -41,13 +41,13 @@ export function WeekView({ currentDate, dates, onDateClick }: WeekViewProps) {
               className={`
                 flex flex-col items-center gap-2 p-4 rounded-2xl border transition-all min-h-[120px]
                 ${style ? style.bg : 'bg-white border-slate-100 hover:border-slate-200'}
-                ${isDateToday ? 'ring-2 ring-green-500/20' : ''}
+                ${isDateToday ? 'ring-2 ring-blue-500/20' : ''}
               `}
             >
-              <span className={`text-[10px] font-bold uppercase tracking-wider ${isDateToday ? 'text-green-600' : 'text-slate-400'}`}>
+              <span className={`text-[10px] font-bold uppercase tracking-wider ${isDateToday ? 'text-blue-600' : 'text-slate-400'}`}>
                 {DAY_NAMES_FULL[date.getDay()].slice(0, 3)}
               </span>
-              <span className={`text-2xl font-black ${isDateToday ? 'text-green-600' : 'text-slate-800'}`}>
+              <span className={`text-2xl font-black ${isDateToday ? 'text-blue-600' : 'text-slate-800'}`}>
                 {date.getDate()}
               </span>
               {status && (

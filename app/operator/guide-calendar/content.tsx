@@ -40,7 +40,7 @@ export function GuideCalendarContent() {
       <div className="min-h-screen bg-slate-50 p-4 flex items-center justify-center">
         <div className="text-center space-y-3">
           <p className="text-sm font-semibold text-slate-500">No guide selected</p>
-          <Link href="/" className="inline-flex items-center gap-1.5 text-sm font-bold text-[#009739] hover:text-[#007a2e] transition-colors">
+          <Link href="/" className="inline-flex items-center gap-1.5 text-sm font-bold text-[#2563eb] hover:text-[#1d4ed8] transition-colors">
             <ArrowLeft className="w-4 h-4" />
             Back to Dashboard
           </Link>
@@ -54,7 +54,7 @@ export function GuideCalendarContent() {
       <div className="min-h-screen bg-slate-50 p-4 flex items-center justify-center">
         <div className="text-center space-y-3">
           <p className="text-sm font-semibold text-red-500">Could not load guide information.</p>
-          <Link href="/" className="inline-flex items-center gap-1.5 text-sm font-bold text-[#009739] hover:text-[#007a2e] transition-colors">
+          <Link href="/" className="inline-flex items-center gap-1.5 text-sm font-bold text-[#2563eb] hover:text-[#1d4ed8] transition-colors">
             <ArrowLeft className="w-4 h-4" />
             Back to Dashboard
           </Link>
@@ -69,7 +69,7 @@ export function GuideCalendarContent() {
         <div className="text-center space-y-3">
           <Loader2 className="w-6 h-6 animate-spin text-slate-400 mx-auto" />
           <p className="text-sm font-semibold text-slate-500">Loading guide information...</p>
-          <Link href="/" className="inline-flex items-center gap-1.5 text-sm font-bold text-[#009739] hover:text-[#007a2e] transition-colors">
+          <Link href="/" className="inline-flex items-center gap-1.5 text-sm font-bold text-[#2563eb] hover:text-[#1d4ed8] transition-colors">
             <ArrowLeft className="w-4 h-4" />
             Back to Dashboard
           </Link>

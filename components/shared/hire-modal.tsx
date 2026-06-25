@@ -126,7 +126,7 @@ export function HireModal({ guide, open, onClose }: HireModalProps) {
   return (
     <Dialog open={open} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="p-0 overflow-hidden border-0 max-w-lg max-sm:mx-2">
-        <div className="bg-gradient-to-r from-green-600 to-emerald-500 p-3.5 sm:p-6 text-white relative overflow-hidden">
+        <div className="bg-gradient-to-r from-blue-600 to-blue-500 p-3.5 sm:p-6 text-white relative overflow-hidden">
           <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
           <div className="relative z-10">
             <div className="flex items-center justify-between">
@@ -138,7 +138,7 @@ export function HireModal({ guide, open, onClose }: HireModalProps) {
                   <DialogTitle className="text-white text-lg font-bold" style={{ fontFamily: 'Outfit, sans-serif' }}>
                     Draft Contract
                   </DialogTitle>
-                  <p className="text-green-100 text-xs mt-0.5">Send an official hire proposal</p>
+                  <p className="text-blue-100 text-xs mt-0.5">Send an official hire proposal</p>
                 </div>
               </div>
             </div>
@@ -149,7 +149,7 @@ export function HireModal({ guide, open, onClose }: HireModalProps) {
               </div>
               <div className="min-w-0">
                 <p className="text-xs sm:text-sm font-bold text-white truncate">{guide.name}</p>
-                <p className="text-[10px] sm:text-[11px] text-green-100 truncate">{guide.email}</p>
+                <p className="text-[10px] sm:text-[11px] text-blue-100 truncate">{guide.email}</p>
               </div>
             </div>
           </div>
@@ -196,7 +196,7 @@ export function HireModal({ guide, open, onClose }: HireModalProps) {
                 ? 'bg-slate-50 border-slate-200'
                 : hasUnavailable
                 ? 'bg-red-50 border-red-200'
-                : 'bg-green-50 border-green-200'
+                : 'bg-blue-50 border-blue-200'
             }`}>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
@@ -205,7 +205,7 @@ export function HireModal({ guide, open, onClose }: HireModalProps) {
                   ) : hasUnavailable ? (
                     <XCircle className="w-4 h-4 text-red-500" />
                   ) : (
-                    <CheckCircle2 className="w-4 h-4 text-green-500" />
+                    <CheckCircle2 className="w-4 h-4 text-blue-500" />
                   )}
                   <div>
                     <p className="text-xs font-bold text-slate-700">

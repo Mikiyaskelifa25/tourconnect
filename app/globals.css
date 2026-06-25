@@ -13,9 +13,9 @@
   --foreground: #0f172a;
 
   /* Brand colors */
-  --brand-green: #16a34a;
-  --brand-green-light: #22c55e;
-  --brand-green-glow: rgba(22, 163, 74, 0.15);
+  --brand-blue: #2563eb;
+  --brand-blue-light: #3b82f6;
+  --brand-blue-glow: rgba(37, 99, 235, 0.15);
   --brand-gold: #d97706;
   --brand-gold-light: #f59e0b;
   --brand-red: #dc2626;
@@ -51,7 +51,7 @@ body {
 /* ── Gradient Backgrounds ── */
 .gradient-mesh {
   background:
-    radial-gradient(ellipse at 20% 0%, rgba(22, 163, 74, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 20% 0%, rgba(37, 99, 235, 0.08) 0%, transparent 60%),
     radial-gradient(ellipse at 80% 0%, rgba(217, 119, 6, 0.06) 0%, transparent 60%),
     radial-gradient(ellipse at 50% 100%, rgba(220, 38, 38, 0.04) 0%, transparent 60%),
     #f8fafc;
@@ -84,8 +84,8 @@ body {
 /* ── Premium Shadows ── */
 .shadow-brand {
   box-shadow:
-    0 10px 40px rgba(22, 163, 74, 0.15),
-    0 4px 16px rgba(22, 163, 74, 0.1);
+    0 10px 40px rgba(37, 99, 235, 0.15),
+    0 4px 16px rgba(37, 99, 235, 0.1);
 }
 
 .shadow-card {
@@ -126,10 +126,10 @@ body {
 
 @keyframes pulse-glow {
   0%, 100% {
-    box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.4);
+    box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4);
   }
   50% {
-    box-shadow: 0 0 0 6px rgba(22, 163, 74, 0);
+    box-shadow: 0 0 0 6px rgba(37, 99, 235, 0);
   }
 }
 
@@ -167,7 +167,7 @@ body {
 
 /* ── Gradient Text ── */
 .gradient-text {
-  background: linear-gradient(135deg, var(--brand-green) 0%, #10b981 50%, var(--brand-green) 100%);
+  background: linear-gradient(135deg, var(--brand-blue) 0%, #3b82f6 50%, var(--brand-blue) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -198,16 +198,16 @@ body {
 }
 
 .input-premium:focus {
-  border-color: var(--brand-green);
-  box-shadow: 0 0 0 4px rgba(0, 151, 57, 0.1);
+  border-color: var(--brand-blue);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
 }
 
 /* ── Flag Banner ── */
 .flag-stripe {
   height: 4px;
   background: linear-gradient(90deg,
-    var(--brand-green) 0%,
-    var(--brand-green) 33.33%,
+    var(--brand-blue) 0%,
+    var(--brand-blue) 33.33%,
     var(--brand-yellow) 33.33%,
     var(--brand-yellow) 66.66%,
     var(--brand-red) 66.66%,
@@ -220,7 +220,7 @@ body {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #22c55e;
+  background: #3b82f6;
   animation: pulse-glow 2s ease-in-out infinite;
 }
 
@@ -264,7 +264,7 @@ body {
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, #16a34a, #22c55e);
+  background: linear-gradient(90deg, #2563eb, #3b82f6);
   border-radius: 99px;
 }
 
@@ -293,8 +293,8 @@ body {
 }
 
 .checkbox-premium:checked {
-  background: #16a34a;
-  border-color: #16a34a;
+  background: #2563eb;
+  border-color: #2563eb;
 }
 
 .checkbox-premium:checked::after {

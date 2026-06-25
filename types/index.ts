@@ -6,6 +6,7 @@ export interface TourGuide {
   rating_avg: number | null
   license_number: string | null
   profile_photo_url: string | null
+  website: string | null
   created_at: string
 }
 
@@ -66,6 +67,7 @@ export interface GuideResult {
   locations: string
   availability_status: 'free' | 'close'
   profile_photo_url: string | null
+  website: string | null
   unavailable_dates?: string[]
 }
 
@@ -98,6 +100,7 @@ export interface RegisterPayload {
   locations?: string[]
   licenseNumber?: string
   profilePhotoUrl?: string
+  website?: string
 }
 
 export interface LoginPayload {
@@ -298,6 +301,7 @@ export interface HireDetails {
     languages: string
     locations: string
     profile_photo_url: string | null
+    website: string | null
   }
   operator: {
     id: string

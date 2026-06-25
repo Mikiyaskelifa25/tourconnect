@@ -10,7 +10,7 @@ const badgeVariants = cva(
         default:
           'bg-slate-100 text-slate-600 border border-slate-200',
         primary:
-          'bg-green-50 text-[#009739] border border-green-100 shadow-sm shadow-green-50',
+          'bg-blue-50 text-[#2563eb] border border-blue-100 shadow-sm shadow-blue-50',
         secondary:
           'bg-yellow-50 text-[#ffd100] border border-yellow-100 shadow-sm shadow-yellow-50',
         destructive:
@@ -20,7 +20,7 @@ const badgeVariants = cva(
         outline:
           'bg-transparent text-slate-600 border border-slate-300',
         success:
-          'bg-green-50 text-[#009739] border border-green-200/80',
+          'bg-blue-50 text-[#2563eb] border border-blue-200/80',
       },
     },
     defaultVariants: {

@@ -285,7 +285,7 @@ export function UnavailableDatesCalendar() {
               />
               <div className="flex items-center gap-4 text-xs text-slate-500 mt-2 justify-center">
                 <span className="flex items-center gap-1.5">
-                  <span className="w-2.5 h-2.5 rounded-full bg-green-500" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-blue-500" />
                   Available
                 </span>
                 <span className="flex items-center gap-1.5">

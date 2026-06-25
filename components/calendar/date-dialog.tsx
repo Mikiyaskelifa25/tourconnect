@@ -81,8 +81,8 @@ export function DateDialog({ open, onOpenChange, dateStr, dateInfo, onSaved }: D
       <DialogContent className="max-w-md">
         <DialogHeader>
           <div className="flex items-center gap-3">
-            <div className="bg-emerald-50 p-2 rounded-xl">
-              <CalendarDays className="w-5 h-5 text-emerald-600" />
+            <div className="bg-blue-50 p-2 rounded-xl">
+              <CalendarDays className="w-5 h-5 text-blue-600" />
             </div>
             <DialogTitle className="text-lg font-black tracking-tight">
               {formatDateDisplay(dateStr)}
@@ -98,12 +98,12 @@ export function DateDialog({ open, onOpenChange, dateStr, dateInfo, onSaved }: D
             <div className="flex items-center gap-2 text-sm text-slate-500 bg-slate-50 rounded-xl px-4 py-2.5">
               <span className="font-medium">Current:</span>
               <span className={`inline-flex items-center gap-1.5 font-bold ${
-                existingStatus === 'available' ? 'text-green-600' :
+                existingStatus === 'available' ? 'text-blue-600' :
                 existingStatus === 'unavailable' ? 'text-red-600' :
                 existingStatus === 'pending' ? 'text-yellow-600' : 'text-blue-600'
               }`}>
                 <span className={`w-1.5 h-1.5 rounded-full ${
-                  existingStatus === 'available' ? 'bg-green-500' :
+                  existingStatus === 'available' ? 'bg-blue-500' :
                   existingStatus === 'unavailable' ? 'bg-red-500' :
                   existingStatus === 'pending' ? 'bg-yellow-500' : 'bg-blue-500'
                 }`} />
@@ -155,7 +155,7 @@ export function DateDialog({ open, onOpenChange, dateStr, dateInfo, onSaved }: D
                     className={`
                       flex flex-col items-center gap-1.5 p-3.5 rounded-xl border-[1.5px] transition-all
                       ${selected && action.value === 'free'
-                        ? 'border-green-400 bg-green-50 shadow-sm'
+                        ? 'border-blue-400 bg-blue-50 shadow-sm'
                         : selected && action.value === 'close'
                         ? 'border-red-400 bg-red-50 shadow-sm'
                         : 'border-slate-200 bg-white/60 text-slate-500 hover:border-slate-300'
@@ -163,12 +163,12 @@ export function DateDialog({ open, onOpenChange, dateStr, dateInfo, onSaved }: D
                     `}
                   >
                     <Icon className={`w-5 h-5 ${
-                      selected && action.value === 'free' ? 'text-green-600' :
+                      selected && action.value === 'free' ? 'text-blue-600' :
                       selected && action.value === 'close' ? 'text-red-600' :
                       'text-slate-400'
                     }`} />
                     <span className={`text-xs font-bold ${
-                      selected && action.value === 'free' ? 'text-green-700' :
+                      selected && action.value === 'free' ? 'text-blue-700' :
                       selected && action.value === 'close' ? 'text-red-700' :
                       'text-slate-600'
                     }`}>

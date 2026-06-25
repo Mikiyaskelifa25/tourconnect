@@ -3,6 +3,7 @@
 import { AppProvider, useApp } from '@/lib/store'
 import { FlagBanner } from '@/components/layout/flag-banner'
 import { Header } from '@/components/layout/header'
+import { Footer } from '@/components/layout/footer'
 import { AuthView } from '@/components/auth/auth-view'
 import { GuideDashboard } from '@/components/guide/guide-dashboard'
 import { OperatorDashboard } from '@/components/operator/operator-dashboard'
@@ -17,7 +18,6 @@ function AppContent() {
 
   return (
     <main
-      className="flex-1 overflow-y-auto"
       id="main-content-panel"
     >
       <div className="w-full px-4 sm:px-6 lg:px-8 py-8">
@@ -40,6 +40,7 @@ function MainLayout() {
       )}
       <AppContent />
       <GuideDetailDialog />
+      {session && <Footer />}
     </>
   )
 }

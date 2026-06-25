@@ -7,6 +7,7 @@ import { SearchFilters } from './search-filters'
 import { GuidesResults } from './guides-results'
 import { SentRequestsTable } from './sent-requests-table'
 import { HireModal } from '@/components/shared/hire-modal'
+import { GuideDetailSheet } from './guide-detail-sheet'
 import { Building2, Search, Send, AlertCircle, Settings } from 'lucide-react'
 import type { GuideResult } from '@/types'
 import Link from 'next/link'
@@ -15,6 +16,7 @@ import Image from 'next/image'
 export function OperatorDashboard() {
   const { session, setGuideResults } = useApp()
   const [hireTarget, setHireTarget] = useState<GuideResult | null>(null)
+  const [detailGuide, setDetailGuide] = useState<GuideResult | null>(null)
   const [searchError, setSearchError] = useState<string | null>(null)
 
   if (!session || session.userType !== 'operator') return null
@@ -52,7 +54,7 @@ export function OperatorDashboard() {
     <section className="space-y-8 animate-fade-in-up">
       {/* Welcome Banner */}
       <div className="relative overflow-hidden rounded-2xl sm:rounded-[2.5rem] bg-slate-900 p-6 sm:p-10 text-white shadow-2xl">
-        <div className="absolute top-0 right-0 w-80 h-80 bg-[#009739]/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl pointer-events-none" />
+        <div className="absolute top-0 right-0 w-80 h-80 bg-[#2563eb]/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-60 h-60 bg-[#ef3340]/10 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl pointer-events-none" />
 
         <div className="relative z-10 flex items-center justify-between gap-8 flex-wrap">
@@ -116,7 +118,7 @@ export function OperatorDashboard() {
         {/* Filters Sidebar */}
         <div className="xl:col-span-1 animate-fade-in-up stagger-1">
           <div className="flex items-center gap-3 text-slate-900 mb-4 px-2">
-            <Search className="w-5 h-5 text-[#009739]" />
+            <Search className="w-5 h-5 text-[#2563eb]" />
             <span className="text-sm font-black uppercase tracking-widest">Search Guides</span>
           </div>
           <SearchFilters onSearch={handleSearch} />
@@ -134,7 +136,7 @@ export function OperatorDashboard() {
 
         {/* Results + Requests */}
         <div className="xl:col-span-3 space-y-8 animate-fade-in-up stagger-2">
-          <GuidesResults onHire={setHireTarget} />
+          <GuidesResults onHire={setHireTarget} onViewDetail={setDetailGuide} />
 
           <div className="flex items-center gap-3 text-slate-900 px-2">
             <Send className="w-5 h-5 text-[#ef3340]" />
@@ -151,6 +153,13 @@ export function OperatorDashboard() {
           onClose={() => setHireTarget(null)}
         />
       )}
+
+      <GuideDetailSheet
+        guide={detailGuide}
+        open={!!detailGuide}
+        onClose={() => setDetailGuide(null)}
+        onHire={setHireTarget}
+      />
 
 
     </section>

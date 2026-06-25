@@ -47,7 +47,7 @@ export function GuideDashboard() {
       {/* Welcome Banner */}
       <div className="relative overflow-hidden rounded-2xl sm:rounded-[2.5rem] bg-slate-900 p-6 sm:p-10 text-white shadow-2xl">
         {/* Background decoration */}
-        <div className="absolute top-0 right-0 w-80 h-80 bg-[#009739]/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl pointer-events-none" />
+        <div className="absolute top-0 right-0 w-80 h-80 bg-[#2563eb]/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-60 h-60 bg-[#ef3340]/10 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl pointer-events-none" />
 
         <div className="relative z-10 flex items-center justify-between gap-8 flex-wrap">
@@ -93,13 +93,13 @@ export function GuideDashboard() {
           <div className="flex items-center gap-3 sm:gap-4 flex-wrap">
             {/* Status Badge */}
             <div className={`flex items-center gap-3 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl sm:rounded-[2rem] px-4 sm:px-6 py-3 sm:py-6 ${
-              globalStatus === 'free' ? 'border-green-500/30' : 'border-red-500/30'
+              globalStatus === 'free' ? 'border-blue-500/30' : 'border-red-500/30'
             }`}>
               <div className={`p-2.5 sm:p-3 rounded-2xl shadow-lg ${
-                globalStatus === 'free' ? 'bg-[#009739] shadow-green-500/20' : 'bg-[#ef3340] shadow-red-500/20'
+                globalStatus === 'free' ? 'bg-[#2563eb] shadow-blue-500/20' : 'bg-[#ef3340] shadow-red-500/20'
               }`}>
                 <div className={`w-4 h-4 sm:w-6 sm:h-6 rounded-full border-2 border-white/60 ${
-                  globalStatus === 'free' ? 'bg-green-200' : 'bg-red-200'
+                  globalStatus === 'free' ? 'bg-blue-200' : 'bg-red-200'
                 }`} />
               </div>
               <div>
@@ -113,7 +113,7 @@ export function GuideDashboard() {
             </div>
 
             <div className="flex items-center gap-3 sm:gap-4 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl sm:rounded-[2rem] px-4 sm:px-8 py-3 sm:py-6">
-              <div className="bg-[#009739] p-2.5 sm:p-3 rounded-2xl shadow-lg shadow-green-500/20">
+              <div className="bg-[#2563eb] p-2.5 sm:p-3 rounded-2xl shadow-lg shadow-blue-500/20">
                 <ShieldCheck className="w-4 h-4 sm:w-6 sm:h-6 text-white shrink-0" />
               </div>
               <div>

@@ -73,7 +73,7 @@ export function HireRequestsList() {
             guideRequests.map((req, i) => (
               <div
                 key={req.id}
-                className="group bg-slate-50/80 border border-slate-200/80 rounded-xl p-4 space-y-3 hover:border-slate-300 hover:bg-white transition-all duration-200 animate-fade-in-up"
+                className="group bg-slate-50/80 border border-blue-100/50 rounded-xl p-4 space-y-3 hover:border-blue-200/50 hover:bg-white transition-all duration-200 animate-fade-in-up"
                 style={{ animationDelay: `${i * 0.06}s` }}
               >
                 <div className="flex items-start justify-between gap-3">
@@ -126,7 +126,7 @@ export function HireRequestsList() {
               </div>
             ))
           ) : (
-            <div className="h-40 flex flex-col items-center justify-center gap-3 text-slate-400 border border-dashed border-slate-200 rounded-xl bg-slate-50/50">
+            <div className="h-40 flex flex-col items-center justify-center gap-3 text-slate-400 border border-dashed border-blue-200/40 rounded-xl bg-slate-50/50">
               <ArchiveRestore className="w-9 h-9 opacity-50" />
               <p className="text-xs text-center">No contract proposals right now.<br />Check back later.</p>
             </div>

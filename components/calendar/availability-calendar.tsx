@@ -186,7 +186,7 @@ export function AvailabilityCalendar({ compact }: AvailabilityCalendarProps) {
           <div className="flex items-center gap-2 px-5 pt-4 pb-2">
             <div className="flex items-center gap-3 text-xs">
               <span className="flex items-center gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-green-500" />
+                <span className="w-2.5 h-2.5 rounded-full bg-blue-500" />
                 <span className="text-slate-500">Available</span>
               </span>
               <span className="flex items-center gap-1.5">

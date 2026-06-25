@@ -122,7 +122,7 @@ export function SentRequestsTable() {
                 return (
                   <div
                     key={req.id}
-                    className="p-3 bg-slate-50/65 rounded-xl border border-slate-100 space-y-2.5 animate-fade-in-up"
+                    className="p-3 bg-slate-50/65 rounded-xl border border-blue-100/50 space-y-2.5 animate-fade-in-up"
                     style={{ animationDelay: `${i * 0.04}s` }}
                   >
                     <div className="flex items-center justify-between">
