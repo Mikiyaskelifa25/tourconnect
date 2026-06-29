@@ -1,10 +1,12 @@
 'use client'
 
-import { ShieldCheck, Inbox, Settings, User, CalendarDays, ExternalLink } from 'lucide-react'
+import { ShieldCheck, Inbox, Settings, User, CalendarDays, ExternalLink, Briefcase, Send } from 'lucide-react'
 import { useApp } from '@/lib/store'
 import { HireRequestsList } from './hire-requests-list'
 import { RecentHistory } from '@/components/shared/recent-history'
 import { DashboardWidgets } from '@/components/calendar/dashboard-widgets'
+import { AvailableJobs } from './available-jobs'
+import { MyApplications } from './my-applications'
 import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
 import Image from 'next/image'
@@ -163,6 +165,22 @@ export function GuideDashboard() {
           <span className="text-sm font-black uppercase tracking-widest">Contract Inbox</span>
         </div>
         <HireRequestsList />
+      </div>
+
+      <div className="space-y-4 animate-fade-in-up stagger-4">
+        <div className="flex items-center gap-3 text-slate-900 px-2">
+          <Briefcase className="w-5 h-5 text-emerald-600" />
+          <span className="text-sm font-black uppercase tracking-widest">Job Board</span>
+        </div>
+        <AvailableJobs />
+      </div>
+
+      <div className="space-y-4 animate-fade-in-up stagger-4">
+        <div className="flex items-center gap-3 text-slate-900 px-2">
+          <Send className="w-5 h-5 text-blue-600" />
+          <span className="text-sm font-black uppercase tracking-widest">My Applications</span>
+        </div>
+        <MyApplications />
       </div>
 
       <div className="animate-fade-in-up stagger-5">

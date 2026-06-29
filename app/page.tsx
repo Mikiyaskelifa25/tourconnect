@@ -10,7 +10,11 @@ import { OperatorDashboard } from '@/components/operator/operator-dashboard'
 import { GuideDetailDialog } from '@/components/shared/guide-detail-dialog'
 
 function AppContent() {
-  const { session } = useApp()
+  const { session, initialized } = useApp()
+
+  if (!initialized) {
+    return null
+  }
 
   if (!session) {
     return <AuthView />

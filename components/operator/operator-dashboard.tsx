@@ -8,7 +8,9 @@ import { GuidesResults } from './guides-results'
 import { SentRequestsTable } from './sent-requests-table'
 import { HireModal } from '@/components/shared/hire-modal'
 import { GuideDetailSheet } from './guide-detail-sheet'
-import { Building2, Search, Send, AlertCircle, Settings } from 'lucide-react'
+import { JobPostingForm } from './job-posting-form'
+import { OperatorJobPostings } from './operator-job-postings'
+import { Building2, Search, Send, AlertCircle, Settings, Briefcase } from 'lucide-react'
 import type { GuideResult } from '@/types'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -18,6 +20,7 @@ export function OperatorDashboard() {
   const [hireTarget, setHireTarget] = useState<GuideResult | null>(null)
   const [detailGuide, setDetailGuide] = useState<GuideResult | null>(null)
   const [searchError, setSearchError] = useState<string | null>(null)
+  const [showJobForm, setShowJobForm] = useState(false)
 
   if (!session || session.userType !== 'operator') return null
 
@@ -136,6 +139,21 @@ export function OperatorDashboard() {
 
         {/* Results + Requests */}
         <div className="xl:col-span-3 space-y-8 animate-fade-in-up stagger-2">
+          <div className="flex items-center justify-between px-2">
+            <div className="flex items-center gap-3 text-slate-900">
+              <Briefcase className="w-5 h-5 text-emerald-600" />
+              <span className="text-sm font-black uppercase tracking-widest">Job Postings</span>
+            </div>
+            <button
+              onClick={() => setShowJobForm(true)}
+              className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl font-bold text-xs transition-all active:scale-95 shadow-lg shadow-emerald-600/20"
+            >
+              <Briefcase className="w-3.5 h-3.5" />
+              Post a Job
+            </button>
+          </div>
+          <OperatorJobPostings />
+
           <GuidesResults onHire={setHireTarget} onViewDetail={setDetailGuide} />
 
           <div className="flex items-center gap-3 text-slate-900 px-2">
@@ -153,6 +171,11 @@ export function OperatorDashboard() {
           onClose={() => setHireTarget(null)}
         />
       )}
+
+      <JobPostingForm
+        open={showJobForm}
+        onClose={() => setShowJobForm(false)}
+      />
 
       <GuideDetailSheet
         guide={detailGuide}

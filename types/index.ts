@@ -130,6 +130,60 @@ export interface HirePayload {
   dailyRate: number
 }
 
+// ── Job Posting System ──
+
+export interface JobPosting {
+  id: string
+  operator_id: string
+  title: string
+  description: string
+  location: string
+  start_date: string | null
+  end_date: string | null
+  daily_rate: number | null
+  languages_required: string[]
+  status: 'open' | 'closed' | 'filled'
+  created_at: string
+  updated_at: string
+}
+
+export interface JobPostingWithOperator extends JobPosting {
+  operator_name: string
+  operator_email: string
+  operator_photo: string | null
+  application_count?: number
+}
+
+export interface JobApplication {
+  id: string
+  job_id: string
+  guide_id: string
+  message: string | null
+  status: 'pending' | 'accepted' | 'rejected'
+  created_at: string
+}
+
+export interface JobApplicationWithGuide extends JobApplication {
+  guide_name: string
+  guide_email: string
+  guide_photo: string | null
+}
+
+export interface JobPostingPayload {
+  title: string
+  description: string
+  location: string
+  startDate: string
+  endDate: string
+  dailyRate: number
+  languagesRequired: string[]
+}
+
+export interface JobApplicationPayload {
+  jobId: string
+  message: string
+}
+
 export interface Notification {
   id: string
   hire_request_id: string

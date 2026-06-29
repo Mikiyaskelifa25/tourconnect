@@ -6,6 +6,7 @@ import { getSession, logout as authLogout, onAuthChange } from './auth'
 
 interface AppContextType {
   session: Session | null
+  initialized: boolean
   guideRequests: HireRequestWithOperator[]
   guideResults: GuideResult[]
   selectedHireId: string | null
@@ -20,12 +21,16 @@ const AppContext = createContext<AppContextType | null>(null)
 
 export function AppProvider({ children }: { children: ReactNode }) {
   const [session, setSessionState] = useState<Session | null>(null)
+  const [initialized, setInitialized] = useState(false)
   const [guideRequests, setGuideRequests] = useState<HireRequestWithOperator[]>([])
   const [guideResults, setGuideResults] = useState<GuideResult[]>([])
   const [selectedHireId, setSelectedHireId] = useState<string | null>(null)
 
   useEffect(() => {
-    getSession().then(setSessionState)
+    getSession().then((s) => {
+      setSessionState(s)
+      setInitialized(true)
+    })
   }, [])
 
   useEffect(() => {
@@ -51,6 +56,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     <AppContext.Provider
       value={{
         session,
+        initialized,
         guideRequests,
         guideResults,
         selectedHireId,

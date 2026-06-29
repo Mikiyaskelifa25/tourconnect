@@ -16,6 +16,9 @@ import type {
   DashboardStats,
   RecurringSchedule,
   GuideAvailabilityResponse,
+  JobPostingWithOperator,
+  JobApplicationWithGuide,
+  JobPostingPayload,
 } from '@/types'
 import { supabase } from './supabase'
 import { login as authLogin, register as authRegister } from './auth'
@@ -1305,6 +1308,330 @@ export async function apiGetOperatorMonthBookings(
   }))
 
   return { ok: true, status: 200, data: results }
+}
+
+// ── Job Postings API ──
+
+export async function apiCreateJobPosting(body: JobPostingPayload): Promise<ApiResponse> {
+  const { data: { session } } = await supabase.auth.getSession()
+  if (!session?.user) return { ok: false, status: 401, data: { error: 'Unauthorized' } }
+
+  const { data: profile } = await supabase
+    .from('tour_operators')
+    .select('id')
+    .eq('email', session.user.email)
+    .single()
+
+  if (!profile) {
+    return { ok: false, status: 403, data: { error: 'Only operators can post jobs' } }
+  }
+
+  const { title, description, location, startDate, endDate, dailyRate, languagesRequired } = body
+
+  const { error } = await supabase
+    .from('job_postings')
+    .insert({
+      operator_id: profile.id,
+      title,
+      description,
+      location,
+      start_date: startDate || null,
+      end_date: endDate || null,
+      daily_rate: dailyRate || null,
+      languages_required: languagesRequired,
+      status: 'open',
+    })
+
+  if (error) {
+    return { ok: false, status: 500, data: { error: error.message } }
+  }
+
+  return { ok: true, status: 200, data: { success: true } }
+}
+
+export async function apiGetOpenJobPostings(): Promise<ApiResponse<JobPostingWithOperator[]>> {
+  const { data, error } = await supabase
+    .from('job_postings')
+    .select(`
+      *,
+      operator:operator_id(id, name, email, profile_photo_url)
+    `)
+    .eq('status', 'open')
+    .order('created_at', { ascending: false })
+
+  if (error) {
+    return { ok: false, status: 500, data: { error: error.message } }
+  }
+
+  const { data: { session } } = await supabase.auth.getSession()
+  let guideId: string | null = null
+  if (session?.user) {
+    const { data: guideProfile } = await supabase
+      .from('tour_guides')
+      .select('id')
+      .eq('email', session.user.email)
+      .maybeSingle()
+    guideId = guideProfile?.id || null
+  }
+
+  const rows = (data || []) as Record<string, unknown>[]
+  const results: JobPostingWithOperator[] = []
+
+  for (const item of rows) {
+    const op = item.operator as Record<string, unknown> | undefined
+
+    let appCount = 0
+    if (guideId) {
+      const { count } = await supabase
+        .from('job_applications')
+        .select('id', { count: 'exact', head: true })
+        .eq('job_id', item.id as string)
+      appCount = count || 0
+    }
+
+    results.push({
+      id: item.id as string,
+      operator_id: item.operator_id as string,
+      title: item.title as string,
+      description: item.description as string,
+      location: item.location as string,
+      start_date: (item.start_date as string) || null,
+      end_date: (item.end_date as string) || null,
+      daily_rate: item.daily_rate != null ? Number(item.daily_rate) : null,
+      languages_required: (item.languages_required as string[]) || [],
+      status: item.status as 'open' | 'closed' | 'filled',
+      created_at: item.created_at as string,
+      updated_at: item.updated_at as string,
+      operator_name: op?.name as string || 'Unknown',
+      operator_email: op?.email as string || '',
+      operator_photo: (op?.profile_photo_url as string) || null,
+      application_count: appCount,
+    })
+  }
+
+  return { ok: true, status: 200, data: results }
+}
+
+export async function apiGetOperatorJobPostings(): Promise<ApiResponse<JobPostingWithOperator[]>> {
+  const { data: { session } } = await supabase.auth.getSession()
+  if (!session?.user) return { ok: false, status: 401, data: { error: 'Unauthorized' } }
+
+  const { data: profile } = await supabase
+    .from('tour_operators')
+    .select('id')
+    .eq('email', session.user.email)
+    .single()
+
+  if (!profile) {
+    return { ok: false, status: 403, data: { error: 'Unauthorized' } }
+  }
+
+  const { data, error } = await supabase
+    .from('job_postings')
+    .select(`
+      *,
+      operator:operator_id(id, name, email, profile_photo_url)
+    `)
+    .eq('operator_id', profile.id)
+    .order('created_at', { ascending: false })
+
+  if (error) {
+    return { ok: false, status: 500, data: { error: error.message } }
+  }
+
+  const rows = (data || []) as Record<string, unknown>[]
+  const results: JobPostingWithOperator[] = []
+
+  for (const item of rows) {
+    const op = item.operator as Record<string, unknown> | undefined
+
+    const { count } = await supabase
+      .from('job_applications')
+      .select('id', { count: 'exact', head: true })
+      .eq('job_id', item.id as string)
+
+    results.push({
+      id: item.id as string,
+      operator_id: item.operator_id as string,
+      title: item.title as string,
+      description: item.description as string,
+      location: item.location as string,
+      start_date: (item.start_date as string) || null,
+      end_date: (item.end_date as string) || null,
+      daily_rate: item.daily_rate != null ? Number(item.daily_rate) : null,
+      languages_required: (item.languages_required as string[]) || [],
+      status: item.status as 'open' | 'closed' | 'filled',
+      created_at: item.created_at as string,
+      updated_at: item.updated_at as string,
+      operator_name: op?.name as string || 'Unknown',
+      operator_email: op?.email as string || '',
+      operator_photo: (op?.profile_photo_url as string) || null,
+      application_count: count || 0,
+    })
+  }
+
+  return { ok: true, status: 200, data: results }
+}
+
+export async function apiApplyToJob(jobId: string, message: string): Promise<ApiResponse> {
+  const { data: { session } } = await supabase.auth.getSession()
+  if (!session?.user) return { ok: false, status: 401, data: { error: 'Unauthorized' } }
+
+  const { data: profile } = await supabase
+    .from('tour_guides')
+    .select('id')
+    .eq('email', session.user.email)
+    .single()
+
+  if (!profile) {
+    return { ok: false, status: 403, data: { error: 'Only guides can apply to jobs' } }
+  }
+
+  const { error } = await supabase
+    .from('job_applications')
+    .insert({
+      job_id: jobId,
+      guide_id: profile.id,
+      message,
+      status: 'pending',
+    })
+
+  if (error) {
+    if (error.code === '23505') {
+      return { ok: false, status: 409, data: { error: 'You have already applied to this job' } }
+    }
+    return { ok: false, status: 500, data: { error: error.message } }
+  }
+
+  return { ok: true, status: 200, data: { success: true, message: 'Application submitted successfully' } }
+}
+
+export async function apiGetJobApplications(jobId: string): Promise<ApiResponse<JobApplicationWithGuide[]>> {
+  const { data, error } = await supabase
+    .from('job_applications')
+    .select(`
+      *,
+      guide:guide_id(id, name, email, profile_photo_url)
+    `)
+    .eq('job_id', jobId)
+    .order('created_at', { ascending: false })
+
+  if (error) {
+    return { ok: false, status: 500, data: { error: error.message } }
+  }
+
+  const rows = (data || []) as Record<string, unknown>[]
+  const results: JobApplicationWithGuide[] = rows.map((item) => {
+    const g = item.guide as Record<string, unknown> | undefined
+    return {
+      id: item.id as string,
+      job_id: item.job_id as string,
+      guide_id: item.guide_id as string,
+      message: (item.message as string) || null,
+      status: item.status as 'pending' | 'accepted' | 'rejected',
+      created_at: item.created_at as string,
+      guide_name: g?.name as string || 'Unknown',
+      guide_email: g?.email as string || '',
+      guide_photo: (g?.profile_photo_url as string) || null,
+    }
+  })
+
+  return { ok: true, status: 200, data: results }
+}
+
+export async function apiUpdateApplicationStatus(applicationId: string, action: 'accept' | 'reject'): Promise<ApiResponse> {
+  const newStatus = action === 'accept' ? 'accepted' : 'rejected'
+
+  const { error } = await supabase
+    .from('job_applications')
+    .update({ status: newStatus })
+    .eq('id', applicationId)
+
+  if (error) {
+    return { ok: false, status: 500, data: { error: error.message } }
+  }
+
+  if (action === 'accept') {
+    const { data: app } = await supabase
+      .from('job_applications')
+      .select('job_id')
+      .eq('id', applicationId)
+      .single()
+
+    if (app) {
+      await supabase
+        .from('job_postings')
+        .update({ status: 'filled' })
+        .eq('id', app.job_id)
+    }
+  }
+
+  return { ok: true, status: 200, data: { success: true } }
+}
+
+export async function apiGetMyApplications(): Promise<ApiResponse<JobApplicationWithGuide[]>> {
+  const { data: { session } } = await supabase.auth.getSession()
+  if (!session?.user) return { ok: false, status: 401, data: { error: 'Unauthorized' } }
+
+  const { data: profile } = await supabase
+    .from('tour_guides')
+    .select('id')
+    .eq('email', session.user.email)
+    .single()
+
+  if (!profile) {
+    return { ok: false, status: 403, data: { error: 'Unauthorized' } }
+  }
+
+  const { data, error } = await supabase
+    .from('job_applications')
+    .select(`
+      *,
+      job:job_id(*, operator:operator_id(id, name, email, profile_photo_url))
+    `)
+    .eq('guide_id', profile.id)
+    .order('created_at', { ascending: false })
+
+  if (error) {
+    return { ok: false, status: 500, data: { error: error.message } }
+  }
+
+  const rows = (data || []) as Record<string, unknown>[]
+  const results: any[] = rows.map((item) => {
+    const job = item.job as Record<string, unknown> | undefined
+    const op = job?.operator as Record<string, unknown> | undefined
+    return {
+      id: item.id as string,
+      job_id: item.job_id as string,
+      guide_id: item.guide_id as string,
+      message: (item.message as string) || null,
+      status: item.status as 'pending' | 'accepted' | 'rejected',
+      created_at: item.created_at as string,
+      job: job ? {
+        id: job.id as string,
+        title: job.title as string,
+        description: job.description as string,
+        location: job.location as string,
+        start_date: (job.start_date as string) || null,
+        end_date: (job.end_date as string) || null,
+        daily_rate: job.daily_rate != null ? Number(job.daily_rate) : null,
+        status: job.status as string,
+        operator_name: op?.name as string || 'Unknown',
+      } : null,
+    }
+  })
+
+  return { ok: true, status: 200, data: results as any }
+}
+
+export async function apiCloseJobPosting(jobId: string): Promise<ApiResponse> {
+  const { error } = await supabase
+    .from('job_postings')
+    .update({ status: 'closed' })
+    .eq('id', jobId)
+
+  if (error) return { ok: false, status: 500, data: { error: error.message } }
+  return { ok: true, status: 200, data: { success: true } }
 }
 
 export async function apiGetGuideAvailabilityForOperator(
